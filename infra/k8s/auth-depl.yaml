@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: salem888/auth
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:salem21211@auth-postgres-srv:5432/ticketing_auth?schema=public"
+            - name: REDIS_URL
+              value: "redis://auth-redis-srv:6379"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:
+  selector:
+    app: auth
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
