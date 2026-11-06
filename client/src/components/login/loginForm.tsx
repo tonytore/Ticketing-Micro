@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { toast } from '@/components/ui/toast'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
+import axios from 'axios'
 
 const loginFormSchema = z.object({
   email: z.string().email(),
@@ -20,8 +21,12 @@ const LoginForm = () => {
       onSubmit: loginFormSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value)
+      const res = await axios.post('http://ticketing.dev/api/users/signup', {
+        email: value.email,
+        password: value.password,
+      })
 
+      console.log(res.data)
       toast.add({
         title: 'Login',
         description: `Email: ${value.email}, Password: ${value.password}`,

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cookieSession from "cookie-session";
 import bodyParser from "body-parser";
 import { authRouter } from "./router/auth.router";
@@ -17,7 +17,6 @@ app.use(
     secure: false,
   }),
 );
-
 app.use("/api/users", authRouter);
 
 app.use(notFoundHandler);
