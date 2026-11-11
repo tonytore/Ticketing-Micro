@@ -4,6 +4,7 @@ import { toast } from '@/components/ui/toast'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import axios from 'axios'
+import { useNavigate } from '@tanstack/react-router'
 
 const loginFormSchema = z.object({
   email: z.string().email(),
@@ -11,6 +12,7 @@ const loginFormSchema = z.object({
 })
 
 const LoginForm = () => {
+  const navigate = useNavigate()
   const form = useForm({
     defaultValues: {
       email: '',
@@ -21,17 +23,17 @@ const LoginForm = () => {
       onSubmit: loginFormSchema,
     },
     onSubmit: async ({ value }) => {
-      const res = await axios.post('http://ticketing.dev/api/users/signup', {
+      await axios.post('http://ticketing.dev/api/users/login', {
         email: value.email,
         password: value.password,
       })
 
-      console.log(res.data)
       toast.add({
         title: 'Login',
         description: `Email: ${value.email}, Password: ${value.password}`,
         type: 'success',
       })
+      navigate({ to: '/' })
     },
   })
   return (
