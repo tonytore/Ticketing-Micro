@@ -12,6 +12,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: salem888/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
 deploy:
   kubectl:
     manifests:

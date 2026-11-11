@@ -1,16 +1,18 @@
 FROM node:20-alpine
 
-# Enable pnpm via Corepack
+# Enable corepack so pnpm is available without extra installs
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+# Copy dependency specifications and pnpm lockfile
+COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies using the existing lockfile
 RUN pnpm install --frozen-lockfile
 
 COPY . .
 
 EXPOSE 3000
 
-# --host allows external/cluster traffic to reach Vite
-CMD ["pnpm", "dev", "--host", "0.0.0.0"]
+CMD ["pnpm", "run", "dev"]
