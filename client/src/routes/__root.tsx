@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRoute, createRootRouteWithContext } from '@tanstack/react-router'
 import { Toaster } from '@/components/ui/toast'
 
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
@@ -6,8 +6,12 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import '../styles.css'
 import Header from '@/components/Header'
+import type { auth } from '@/utils/auth'
 
-export const Route = createRootRoute({
+interface MyRouterContext {
+  auth: typeof auth
+}
+export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: RootComponent,
 })
 
