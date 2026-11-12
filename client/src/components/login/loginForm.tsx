@@ -30,7 +30,7 @@ const LoginForm = () => {
 
       toast.add({
         title: 'Login',
-        description: `Email: ${value.email}, Password: ${value.password}`,
+        description: `You are successfully logged in`,
         type: 'success',
       })
       navigate({ to: '/' })

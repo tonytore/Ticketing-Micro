@@ -1,10 +1,17 @@
-import { auth } from '@/utils/auth'
 import { Link } from '@tanstack/react-router'
+import { toast } from './ui/toast'
+import { auth } from '@/utils/auth'
+import axios from 'axios'
 
 const Header = () => {
-  const logout = () => {
-    localStorage.removeItem('token')
-    window.location.href = '/login'
+  const handleLogout = async()=>{
+    await axios.post('http://ticketing.dev/api/users/signout')
+    toast.add({
+      title: 'Logout',
+      description: `You are successfully logged out`,
+      type: 'success',
+    })
+    auth.logout()
   }
 
   return (
@@ -21,17 +28,21 @@ const Header = () => {
             Login
           </button>
         </Link>
-        <Link to="/signup">
-          <button className="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Sign Up
+        {!auth.isAuthenticated() && (
+          <Link to="/signup">
+            <button className="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Sign Up
+            </button>
+          </Link>
+        )}
+        {auth.isAuthenticated() && (
+          <button
+            onClick={()=>{handleLogout()}}
+            className="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Logout
           </button>
-        </Link>
-        {/* <button
-          onClick={()=>auth.logout()}
-          className="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Logout
-        </button> */}
+        )}
       </div>
     </nav>
   )
