@@ -23,11 +23,18 @@ const LoginForm = () => {
       onSubmit: loginFormSchema,
     },
     onSubmit: async ({ value }) => {
-      await axios.post('http://ticketing.dev/api/users/login', {
+     const res =  await axios.post('http://ticketing.dev/api/users/login', {
         email: value.email,
         password: value.password,
       })
-
+      if (res.data.errors) {
+        toast.add({
+          title: 'Login',
+          description: `${res.data.errors[0].message}`,
+          type: 'error',
+        })
+        return
+      }
       toast.add({
         title: 'Login',
         description: `You are successfully logged in`,

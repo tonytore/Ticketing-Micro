@@ -1,9 +1,10 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from './ui/toast'
 import { auth } from '@/utils/auth'
 import axios from 'axios'
 
 const Header = () => {
+  const navigate = useNavigate()
   const handleLogout = async()=>{
     await axios.post('http://ticketing.dev/api/users/signout')
     toast.add({
@@ -12,6 +13,7 @@ const Header = () => {
       type: 'success',
     })
     auth.logout()
+    navigate({ to: '/login' })
   }
 
   return (
@@ -35,7 +37,7 @@ const Header = () => {
             </button>
           </Link>
         )}
-        {auth.isAuthenticated() && (
+        {!auth.isAuthenticated() && (
           <button
             onClick={()=>{handleLogout()}}
             className="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

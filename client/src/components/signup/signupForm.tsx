@@ -6,18 +6,36 @@ import { Input } from '../ui/input'
 import axios from 'axios'
 import { useNavigate } from '@tanstack/react-router'
 
+interface SignupFormValues {
+  email: string
+  password: string
+  confirmPassword: string
+}
+
 const signupFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6, 'Password must be min 6.'),
+  confirmPassword: z.string().min(6, 'Password must be min 6.'),
 })
 
 const SignupForm = () => {
   const navigate = useNavigate()
+
+
+  const getFieldErrorMessage = (error: unknown) => {
+    if (typeof error === 'string') return error
+    if (error && typeof error === 'object' && 'message' in error) {
+      return String((error as { message?: string }).message ?? '')
+    }
+    return ''
+  }
+
   const form = useForm({
     defaultValues: {
       email: '',
       password: '',
-    },
+      confirmPassword: '',
+    } ,
 
     validators: {
       onSubmit: signupFormSchema,
@@ -93,6 +111,39 @@ const SignupForm = () => {
               field.state.meta.errors.length > 0 ? (
                 <em className="text-sm text-red-500">
                   {field.state.meta.errors.map((err) => err?.message)}
+                </em>
+              ) : null}
+            </div>
+          )}
+        </form.Field>
+        <form.Field
+          name="confirmPassword"
+          validators={{
+            onChangeListenTo: ['password'],
+            onChange: ({ value, fieldApi }) => {
+              if (value !== fieldApi.form.getFieldValue('password')) {
+                return 'Passwords do not match'
+              }
+            },
+          }}
+        >
+          {(field) => (
+            <div className="">
+              <div className="flex flex-col gap-2">
+                <label htmlFor={field.name}>Confirm Password</label>
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  className="border rounded-none p-2"
+                  value={field.state.value}
+                  type="password"
+                  onChange={(e) => field.handleChange(e.target.value)}
+                />
+              </div>
+              {field.state.meta.isTouched &&
+              field.state.meta.errors.length > 0 ? (
+                <em className="text-sm text-red-500">
+                  {field.state.meta.errors.map((err) => getFieldErrorMessage(err))}
                 </em>
               ) : null}
             </div>

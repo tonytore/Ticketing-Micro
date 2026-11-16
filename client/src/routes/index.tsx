@@ -1,40 +1,41 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { Loader } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
-  // beforeLoad: ({ context }) => {
-  //   if (!context.auth.isAuthenticated()) {
-  //     throw redirect({
-  //       to: '/login',
-  //       search: {
-  //         alert: 'you must be logged in to access the home page',
-  //       },
-  //     })
-  //   } else {
-  //     throw redirect({
-  //       to: '/',
-  //     })
-  //   }
-  // },
   component: Home,
 })
 
-async function Home() {
-  let cur_user:any
-  if (typeof window === 'undefined') {
-    // console.log('window.location.href', window.location.href)
-  } else {
-    const { data } = await axios.get('api/users/currentuser')
-    cur_user = data
-    console.log('dataaa', data)
-    console.log('cur_user', cur_user)
-    return data
+const fetchCurrentUser = async () => {
+  const res = await axios.get(`/api/users/currentuser`)
+  return res.data
+}
+
+function Home() {
+  const { data, isLoading,error,status } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: fetchCurrentUser,
+  })
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loader className="text-center w-20 h20 animate-spin" />
+      </div>
+    )
   }
+
+  if (status === 'error') {
+    return <div className="text-red-500">{`Error fetching current user ${error.message}`}</div>
+  }
+
   return (
-    <div className="mt-16 bg-amber-300">
+    <div className="mt-16 bg-amber-300 h-screen flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold">Landing Page!!</h1>
-      <p>{cur_user?.data.currentuser.id}</p>
-      <p>{cur_user?.data.currentuser.email}</p>
+      <p className="text-2xl font-bold text-white">
+        {data ? `Current User: ${data?.data.currentUser?.email}` : 'No current user'}
+      </p>
     </div>
   )
 }
