@@ -2,8 +2,8 @@ import express, { Request, Response } from "express";
 import cookieSession from "cookie-session";
 import bodyParser from "body-parser";
 import { authRouter } from "./router/auth.router";
-import errorHandler from "./utils/error/error_handler";
-import notFoundHandler from "./utils/error/not_found_error";
+import {errorHandler} from "@salemticket/common";
+import { notFoundHandler} from "@salemticket/common";
 
 const app = express();
 app.use(bodyParser.json());

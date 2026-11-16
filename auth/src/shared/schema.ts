@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { logger } from "../utils/logger/logger";
+import { logger } from "@salemticket/common";
 
 export const calculationModeValidator = Joi.string()
   .valid("SINGLE", "PHASED")

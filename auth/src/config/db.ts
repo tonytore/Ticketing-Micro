@@ -1,5 +1,5 @@
 
-import { logger } from "../utils/logger/logger.js";
+import { logger } from "@salemticket/common";
 import { db } from "../lib/prisma.js";
 
 // const readEnv = (key: string, fallback = ''): string => {
