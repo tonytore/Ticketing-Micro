@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { MulterError } from "multer";
-import { logger } from "../logger/logger.js";
-import { errorResponse } from "../helper/response-helper.js";
-import { BadRequestError, CustomError } from "./custom_error_handler.js";
-import { Prisma } from "../../generated/prisma/client.js";
+import { logger } from "../utils/logger/logger.js";
+import { errorResponse } from "../utils/helper/response-helper.js";
+import { BadRequestError, CustomError } from "../utils/error/custom_error_handler.js";
+import { Prisma } from "../generated/prisma/client.js";
 
 const errorHandler = (
   err: Error,
