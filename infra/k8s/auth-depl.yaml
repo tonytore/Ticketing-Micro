@@ -15,12 +15,16 @@ spec:
       containers:
         - name: auth
           image: salem888/auth
+          imagePullPolicy: IfNotPresent
           env:
             - name: DATABASE_URL
-              value: "postgresql://postgres:salem21211@auth-postgres-srv:5432/ticketing_auth?schema=public"
+              valueFrom:
+                secretKeyRef:
+                  name: auth-db-secret
+                  key: DATABASE_URL
             - name: REDIS_URL
               value: "redis://auth-redis-srv:6379"
-            - name: JWT_KEY
+            - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret

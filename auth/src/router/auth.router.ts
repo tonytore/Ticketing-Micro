@@ -5,11 +5,11 @@ import { validate } from "@salemticket/common";
 import { loginSchema, signupSchema } from "./auth.schema";
 import { errorResponse, successResponse } from "@salemticket/common";
 import { UnauthenticatedError } from "@salemticket/common";
-import { appConfig } from "@salemticket/common";
 import { CurrentUser } from "@salemticket/common";
 import { RequireAuth } from "@salemticket/common";
 import { db } from "../lib/prisma";
 import { User } from "../generated/prisma/client";
+import { appConfig } from "../config/app_config";
 
 const router = Router();
 

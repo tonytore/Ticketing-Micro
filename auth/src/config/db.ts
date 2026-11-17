@@ -1,4 +1,3 @@
-
 import { logger } from "@salemticket/common";
 import { db } from "../lib/prisma.js";
 

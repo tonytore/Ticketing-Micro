@@ -1,6 +1,6 @@
 import { createClient, RedisClientType } from "redis";
-import { logger } from "../utils/logger/logger.js";
-import appConfig from "../config/app_config.js";
+import { logger } from "@salemticket/common";
+import { appConfig } from "../config/app_config";
 
 class RedisClient {
   private client: RedisClientType;

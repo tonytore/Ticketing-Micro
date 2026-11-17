@@ -18,7 +18,7 @@
     "postinstall": "npx prisma generate || exit 0"
   },
   "dependencies": {
-    "@salemticket/common": "^1.0.12",
+    "@salemticket/common": "^1.0.17",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-session": "^2.0.49",
     "bcrypt": "^6.0.0",

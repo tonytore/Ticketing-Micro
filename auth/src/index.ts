@@ -1,9 +1,9 @@
 import http from "http";
 import app from "./app.js";
 import { logger } from "@salemticket/common";
-import { appConfig } from "@salemticket/common";
-import redisConnection from "./redis/redis.connection.js";
+// import redisConnection from "./redis/redis.connection.js";
 import { connectToDB } from "./config/db.js";
+import { appConfig } from "./config/app_config.js";
 
 const httpServer = http.createServer(app);
 
