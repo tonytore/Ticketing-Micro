@@ -15,7 +15,7 @@ spec:
       containers:
         - name: client
           image: salem888/client
-
+          imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
 kind: Service

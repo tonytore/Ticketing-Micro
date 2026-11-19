@@ -1,9 +1,9 @@
-FROM node:20-alpine
-
-# Enable corepack so pnpm is available without extra installs
-RUN corepack enable && corepack prepare pnpm@latest --activate
+FROM node:22-alpine
 
 WORKDIR /app
+
+# Install pnpm directly via npm (avoids Corepack dynamic download timeouts)
+RUN npm install -g pnpm@12.18.0
 
 # Copy dependency specifications and pnpm lockfile
 COPY package.json pnpm-lock.yaml* ./
