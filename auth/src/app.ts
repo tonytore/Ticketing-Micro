@@ -1,8 +1,8 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cookieSession from "cookie-session";
 import bodyParser from "body-parser";
 import { authRouter } from "./router/auth.router";
-import { errorHandler } from "@salemticket/common";
+import { CurrentUser, errorHandler } from "@salemticket/common";
 import { notFoundHandler } from "@salemticket/common";
 
 const app = express();
@@ -17,6 +17,7 @@ app.use(
     secure: false,
   }),
 );
+app.use(CurrentUser)
 app.use("/api/users", authRouter);
 
 app.use(notFoundHandler);

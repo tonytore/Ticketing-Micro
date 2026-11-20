@@ -24,7 +24,7 @@ router.get(
   },
 );
 
-router.get("/currentuser/:id", async (req: Request, res: Response) => {
+router.get("/currentuser/:id",  async(req: Request, res: Response) => {
   const { id } = req.params;
   const users = await db.user.findMany();
   if (!users || users.length === 0) {
