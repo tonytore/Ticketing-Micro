@@ -7,8 +7,8 @@ const router = Router();
 
 router.post("/", RequireAuth, validate(ticketCreateSchema), createTickets);
 router.post("/", RequireAuth, validate(getTicketSchema), getAllTickets);
-router.post("/", RequireAuth, validate(getSpecificTicketSchema), getSpecificTickets);
-router.post("/", RequireAuth, validate(ticketUpdateSchema), updateTickets);
+router.post("/:id", RequireAuth, validate(getSpecificTicketSchema), getSpecificTickets);
+router.post("/:id", RequireAuth, validate(ticketUpdateSchema), updateTickets);
 
 
 export { router as ticketRouter };

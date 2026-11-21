@@ -17,14 +17,15 @@ export const getAllTicketRepo = async ()=>{
 
 export const getSpecificTicketRepo = async (id:string)=>{
   return await db.ticket.findUnique({
-    data: {
+    where: {
       id
     }
   })
 }
 
-export const updateTicketRepo = async ({ title, price, userId }: UpdateTicketPayload) => {
+export const updateTicketRepo = async ({id, title, price, userId }: UpdateTicketPayload) => {
   const result = await db.ticket.update({
+    where:{id},
     data: {
       title,
       price,

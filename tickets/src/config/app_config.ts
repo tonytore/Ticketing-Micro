@@ -12,6 +12,6 @@ export const appConfig = {
   LOG_LEVEL: process.env.LOG_LEVEL || "info",
   DATABASE_URL:
     process.env.DATABASE_URL ||
-    "postgresql://postgres:salem21211@tickets:5432/tickets?schema=public",
+    "postgresql://postgres:salem21211@ticket-postgres-srv:5432/tickets?schema=public",
   REDIS_URL: process.env.REDIS_URL || "redis://auth-redis-srv:6379",
 };

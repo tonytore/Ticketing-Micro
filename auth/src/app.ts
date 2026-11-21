@@ -17,7 +17,7 @@ app.use(
     secure: false,
   }),
 );
-app.use(CurrentUser)
+// app.use(CurrentUser)
 app.use("/api/users", authRouter);
 
 app.use(notFoundHandler);

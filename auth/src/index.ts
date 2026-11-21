@@ -11,7 +11,7 @@ const initializeApp = async () => {
   try {
     httpServer.listen(appConfig.PORT, () => {
       logger.info(
-        `[server]: server is running at http://localhost:${appConfig.PORT}`,
+        `[auth server]: server is running at http://localhost:${appConfig.PORT}`,
       );
     });
     await connectToDB();

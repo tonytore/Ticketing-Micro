@@ -11,6 +11,6 @@ export default defineConfig({
   datasource: {
     url:
       appConfig.DATABASE_URL ||
-      "postgresql://postgres:salem21211@localhost:5432/tickets?schema=public",
+      "postgresql://postgres:salem21211@ticket-postgres-srv:5432/tickets?schema=public",
   },
 });
